@@ -1,11 +1,20 @@
 #ifndef COSMIC_OBJECT_H
 #define COSMIC_OBJECT_H
 
-struct CosmicObject {
-    CosmicObject(int x, int y, int z) {
-        Hash = x + (y << 10) + (z << 20);
+#include "Coords.h"
+
+struct CosmicObject
+{
+    CosmicObject(SphericalCoordinates spherical_coordinates)
+    {
+        spherical_coords = spherical_coordinates;
+
+        Seed = spherical_coordinates.radius + (static_cast<long>(spherical_coordinates.angle) << 20) + (static_cast<long>(spherical_coordinates.azimuth) << 30);
     }
-    int Hash;
+
+    SphericalCoordinates spherical_coords;
+
+    long Seed;
 };
 
 #endif

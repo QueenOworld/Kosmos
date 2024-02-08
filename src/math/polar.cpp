@@ -4,8 +4,6 @@
 
 CartesianCoordinates spherical_to_cartesian_coords(SphericalCoordinates spherical_coords)
 {
-    std::vector<double> cartesian_coords = std::vector<double>(3, 0);
-
     double x = spherical_coords.radius * std::sin(spherical_coords.angle) * std::cos(spherical_coords.azimuth);
     
     double y = spherical_coords.radius * std::sin(spherical_coords.angle) * std::sin(spherical_coords.azimuth);

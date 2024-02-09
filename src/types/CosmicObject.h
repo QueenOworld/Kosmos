@@ -2,6 +2,7 @@
 #define COSMIC_OBJECT_H
 
 #include "Coords.h"
+#include <bit>
 
 struct CosmicObject
 {
@@ -9,7 +10,7 @@ struct CosmicObject
     {
         spherical_coords = spherical_coordinates;
 
-        Seed = spherical_coordinates.radius + (static_cast<long>(spherical_coordinates.angle) << 20) + (static_cast<long>(spherical_coordinates.azimuth) << 30);
+        Seed = std::bit_cast<long>(spherical_coordinates.radius) + (std::bit_cast<long>(spherical_coordinates.angle) << 20) + (std::bit_cast<long>(spherical_coordinates.azimuth) << 30);
     }
 
     SphericalCoordinates spherical_coords;

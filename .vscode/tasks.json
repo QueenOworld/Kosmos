@@ -6,8 +6,9 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
+                "-std=c++23",
                 "-g",
-                "${file}",
+                "$(find . -type f -iregex \".*\\.cpp\")",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

@@ -56,7 +56,7 @@ int main()
 
         for (int i = 0; i < 100; i++)
         {
-            objects[i].spherical_coords.angle += 0.01;
+            objects[i].spherical_coords.azimuth += 0.01;
         }
     }
 }

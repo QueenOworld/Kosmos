@@ -6,6 +6,7 @@
 
 int main()
 {
+    int view_radius = 10;
 
     std::vector<CosmicObject> objects = std::vector<CosmicObject>(100, CosmicObject({0, 0, 0}));
 
@@ -16,36 +17,36 @@ int main()
 
     while (true)
     {
-        std::vector<std::vector<char>> view = std::vector<std::vector<char>>(15, std::vector<char>(15, ' '));
+        std::vector<std::vector<char>> view = std::vector<std::vector<char>>(2 * view_radius + 1, std::vector<char>(2 * view_radius + 1, ' '));
 
         for (CosmicObject i : objects)
         {
             CartesianCoordinates xyz = spherical_to_cartesian_coords(i.spherical_coords);
 
-            int X = xyz.x * (15 / xyz.z);
-            int Y = xyz.y * (15 / xyz.z);
-            int Z = xyz.z * (15 / xyz.z);
+            int X = xyz.x * (1 / xyz.z);
+            int Y = xyz.y * (1 / xyz.z);
+            int Z = xyz.z * (1 / xyz.z);
 
-            if (X >= -7 && X <= 7 && Y >= -7 && Y <= 7 && Z > 1)
+            if (X >= -(view_radius) && X <= view_radius && Y >= -(view_radius) && Y <= view_radius && xyz.z > 1)
             {
-                if (i.spherical_coords.radius < 500)
+                if (i.spherical_coords.radius < 3000)
                 {
-                    view[Y + 7][X + 7] = 'O';
+                    view[Y + view_radius][X + view_radius] = 'O';
                 }
-                else if (i.spherical_coords.radius < 1500)
+                else if (i.spherical_coords.radius < 6000)
                 {
-                    view[Y + 7][X + 7] = 'o';
+                    view[Y + view_radius][X + view_radius] = 'o';
                 }
                 else
                 {
-                    view[Y + 7][X + 7] = '.';
+                    view[Y + view_radius][X + view_radius] = '.';
                 }
             }
         }
 
-        for (int row = 0; row < 15; row++)
+        for (int row = 0; row < 2 * view_radius + 1; row++)
         {
-            for (int col = 0; col < 15; col++)
+            for (int col = 0; col < 2 * view_radius + 1; col++)
             {
                 std::cout << view[row][col] << ' ';
             }
@@ -56,7 +57,7 @@ int main()
 
         for (int i = 0; i < 100; i++)
         {
-            objects[i].spherical_coords.azimuth += 0.01;
+            objects[i].spherical_coords.angle += 0.01;
         }
     }
 }

@@ -11,6 +11,11 @@ struct CartesianCoordinates
     double x, y, z;
 };
 
+struct RectangularCoordinates
+{
+    double x, y;
+};
+
 CartesianCoordinates spherical_to_cartesian_coords(SphericalCoordinates);
 SphericalCoordinates cartesian_to_spherical_coordinates(CartesianCoordinates);
 SphericalCoordinates random_spherical_coords();

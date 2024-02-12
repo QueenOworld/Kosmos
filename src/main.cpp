@@ -35,7 +35,7 @@ int main()
 
     while (true)
     {
-        std::vector<std::vector<char>> view = std::vector<std::vector<char>>(2 * view_radius + 1, std::vector<char>(2 * view_radius + 1, ' '));
+        std::vector<std::vector<CosmicObject>> view = std::vector<std::vector<CosmicObject>>(2 * view_radius + 1, std::vector<CosmicObject>(2 * view_radius + 1, CosmicObject({0, 0, 0})));
 
         for (CosmicObject i : objects)
         {
@@ -46,18 +46,7 @@ int main()
 
             if (X >= -(view_radius) && X <= view_radius && Y >= -(view_radius) && Y <= view_radius && xyz.z > 1.0)
             {
-                if (i.spherical_coords.radius < 30000.0)
-                {
-                    view[Y + view_radius][X + view_radius] = '3';
-                }
-                else if (i.spherical_coords.radius < 60000.0)
-                {
-                    view[Y + view_radius][X + view_radius] = '2';
-                }
-                else
-                {
-                    view[Y + view_radius][X + view_radius] = '1';
-                }
+                view[Y + view_radius][X + view_radius] = i;
             }
         }
 
@@ -67,21 +56,13 @@ int main()
         {
             for (int col = 0; col < 2 * view_radius + 1; col++)
             {
-                if (view[row][col] == '3')
+                if (view[row][col].Seed == 0)
                 {
-                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::color_n(255) << '*' << ' ';
-                }
-                else if (view[row][col] == '2')
-                {
-                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::color_rgb(100, 100, 100) << '.' << ' ';
-                }
-                else if (view[row][col] == '1')
-                {
-                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::color_n(235) << '.' << ' ';
+                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::color_n(255) << ' ' << ' ';
                 }
                 else
                 {
-                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::color_n(255) << ' ' << ' ';
+                    std::cout << ansi_escape_codes::color_bg_n(232) << view[row][col].get_color() << view[row][col].get_symbol() << ' ';
                 }
             }
             std::cout << '\n';
@@ -156,7 +137,8 @@ int main()
             case 122: // z
             {
                 zoom -= 2;
-                if (zoom < 1) zoom = 1;
+                if (zoom < 1)
+                    zoom = 1;
             }
             case 120: // x
             {

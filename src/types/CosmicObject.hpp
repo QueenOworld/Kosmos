@@ -2,20 +2,19 @@
 #define COSMIC_OBJECT_H
 
 #include "../math/Coords.hpp"
-#include <bit>
+#include "../utils/ansi_escape_code.hpp"
 
 struct CosmicObject
 {
-    CosmicObject(SphericalCoordinates spherical_coordinates)
-    {
-        spherical_coords = spherical_coordinates;
-
-        Seed = std::bit_cast<long>(spherical_coordinates.radius) + (std::bit_cast<long>(spherical_coordinates.angle) << 21) + (std::bit_cast<long>(spherical_coordinates.azimuth) << 42);
-    }
+    CosmicObject(SphericalCoordinates);
 
     SphericalCoordinates spherical_coords;
 
     long Seed;
+
+    const char* get_symbol();
+
+    ansi_escape_codes::color_n get_color();
 };
 
 #endif

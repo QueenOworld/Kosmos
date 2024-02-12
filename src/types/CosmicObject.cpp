@@ -13,8 +13,9 @@ CosmicObject::CosmicObject(SphericalCoordinates spherical_coordinates)
 
 const char *CosmicObject::get_symbol()
 {
-    const char *symbols[14] = {".", "*", "✧", "✦", "⋆", "✴", "✵", "✶", "✷", "✸", "✹", "❂", "᠅", "◌"};
-    return symbols[std::abs(Seed) % 14];
+    if (Seed == 0) return "  ";
+    const char *symbols[28] = {". ", "* ", "✧ ", "✦ ", "⋆ ", "✴ ", "✵ ", "✶ ", "✷ ", "✸ ", "✹ ", "❂ ", "᠅ ", "◌ ", " .", " *", " ✧", " ✦", " ⋆", " ✴", " ✵", " ✶", " ✷", " ✸", " ✹", " ❂", " ᠅", " ◌"};
+    return symbols[std::abs(Seed) % 28];
 }
 
 ansi_escape_codes::color_n CosmicObject::get_color()

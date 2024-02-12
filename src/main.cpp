@@ -56,13 +56,15 @@ int main()
         {
             for (int col = 0; col < 2 * view_radius + 1; col++)
             {
-                if (view[row][col].Seed == 0)
-                {
-                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::color_n(255) << ' ' << ' ';
+                if ((row == view_radius || col == view_radius) && !(row == view_radius && col == view_radius)) {
+                    std::cout << ansi_escape_codes::color_bg_n(236) << view[row][col].get_color() << view[row][col].get_symbol();
+                }
+                else if (row == view_radius && col == view_radius) {
+                    std::cout << ansi_escape_codes::color_bg_n(232) << ansi_escape_codes::slow_blink_opcode() << view[row][col].get_color() << view[row][col].get_symbol() << ansi_escape_codes::blink_off_opcode();
                 }
                 else
                 {
-                    std::cout << ansi_escape_codes::color_bg_n(232) << view[row][col].get_color() << view[row][col].get_symbol() << ' ';
+                    std::cout << ansi_escape_codes::color_bg_n(232) << view[row][col].get_color() << view[row][col].get_symbol();
                 }
             }
             std::cout << '\n';

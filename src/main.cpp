@@ -72,79 +72,79 @@ int main()
 
         std::cout << std::endl;
 
+        input = getch_echo(false);
+
         switch (input)
         {
             case 119:
             case 65: // up
             {
-                x_rotation += 0.02;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.02, 0.00, 0.00);
+                    rotate(objects[i].spherical_coords, 0.01, 0.00, 0.00);
                 }
                 // std::cout << "\u2191";
+                break;
             }
             case 115:
             case 66: // down
             {
-                x_rotation -= 0.01;
-                y_rotation -= 0.01;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, -0.01, -0.01, 0.00);
+                    rotate(objects[i].spherical_coords, -0.01, 0.0, 0.00);
                 }
                 // std::cout << "\u2193";
+                break;
             }
             case 100:
             case 67: // right
             {
-                y_rotation += 0.02;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, 0.02, 0.00);
+                    rotate(objects[i].spherical_coords, 0.0, 0.01, 0.00);
                 }
                 // std::cout << "\u2192";
+                break;
             }
             case 97:
             case 68: // left
             {
-                zoom++;
-                y_rotation -= 0.01;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, -0.01, 0.01);
+                    rotate(objects[i].spherical_coords, 0.0, -0.01, 0.0);
                 }
                 // std::cout << "\u2190";
+                break;
             }
             case 113: // q
             {
-                zoom--;
-                z_rotation -= 0.02;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, 0.0, -0.02);
+                    rotate(objects[i].spherical_coords, 0.0, 0.0, -0.01);
                 }
                 // std::cout << "\u21BA";
+                break;
             }
             case 101: // e
             {
-                zoom++;
-                z_rotation += 0.01;
                 for (int i = 0; i < object_count; i++)
                 {
                     rotate(objects[i].spherical_coords, 0.0, 0.0, 0.01);
                 }
                 // std::cout << "\u21BB";
+                break;
             }
             case 122: // z
             {
-                zoom -= 2;
+                zoom -= 1;
                 if (zoom < 1)
                     zoom = 1;
+                break;
             }
             case 120: // x
             {
                 zoom++;
+                break;
             }
         }
 
@@ -176,7 +176,5 @@ int main()
         }
 
         std::cout << ansi_escape_codes::reset << std::format(" X: {}    Y: {}   Z: {}   Zoom: {}                               ", x_rotation, y_rotation, z_rotation, zoom);
-
-        input = getch_echo(false);
     }
 }

@@ -61,7 +61,7 @@ int main()
             {
                 if ((row == view_radius || col == view_radius) && !(row == view_radius && col == view_radius))
                 {
-                    std::cout << ansi_escape_codes::color_bg_n(234) << view[row][col].get_color() << view[row][col].get_symbol();
+                    std::cout << ansi_escape_codes::color_bg_n(233) << view[row][col].get_color() << view[row][col].get_symbol();
                 }
                 else if (row == view_radius && col == view_radius)
                 {
@@ -159,7 +159,7 @@ int main()
             case 90: // shift + z
             {
                 view_radius--;
-                if (view_radius < 1) view_radius = 1;
+                if (view_radius < 16) view_radius = 16;
                 break;
             }
             case 88: // shift + x

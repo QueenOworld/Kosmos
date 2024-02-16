@@ -7,13 +7,11 @@
 #include <math.h>
 #include <string>
 #include <format>
+#include <stdlib.h>
 
 int main()
 {
-    // while (true)
-    // {
-    //     std::cout << getch_echo(false) << "\n";
-    // }
+    std::system("clear");
 
     const int object_count = 500;
 
@@ -27,7 +25,7 @@ int main()
     double y_rotation = 0.0;
     double z_rotation = 0.0;
 
-    double rotation_distance = 0.01;
+    double rotation_distance = 0.1;
 
     std::vector<CosmicObject> objects = std::vector<CosmicObject>(object_count, CosmicObject({0, 0, 0}));
 
@@ -47,7 +45,7 @@ int main()
             double X = xyz.x * (zoom / (zoom - xyz.z));
             double Y = xyz.y * (zoom / (zoom - xyz.z));
 
-            if (X >= -(view_radius) && X <= view_radius && Y >= -(view_radius) && Y <= view_radius && xyz.z > 1.0)
+            if (X >= -(view_radius) && X <= view_radius && Y >= -(view_radius) && Y <= view_radius)
             {
                 view[Y + view_radius][X + view_radius] = i;
             }
@@ -87,7 +85,7 @@ int main()
                 x_rotation += rotation_distance;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, rotation_distance, 0.00, 0.00);
+                    rotate(objects[i].spherical_coords, rotation_distance * (M_PI / 180), 0.00, 0.0);
                 }
                 break;
             }
@@ -97,7 +95,7 @@ int main()
                 x_rotation -= rotation_distance;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, -rotation_distance, 0.0, 0.00);
+                    rotate(objects[i].spherical_coords, -rotation_distance * (M_PI / 180), 0.0, 0.0);
                 }
                 break;
             }
@@ -107,7 +105,7 @@ int main()
                 y_rotation += rotation_distance;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, rotation_distance, 0.00);
+                    rotate(objects[i].spherical_coords, 0.0, rotation_distance * (M_PI / 180), 0.0);
                 }
                 break;
             }
@@ -117,7 +115,7 @@ int main()
                 y_rotation -= rotation_distance;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, -rotation_distance, 0.0);
+                    rotate(objects[i].spherical_coords, 0.0, -rotation_distance * (M_PI / 180), 0.0);
                 }
                 break;
             }
@@ -126,7 +124,7 @@ int main()
                 z_rotation -= rotation_distance;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, 0.0, -rotation_distance);
+                    rotate(objects[i].spherical_coords, 0.0, 0.0, -rotation_distance * (M_PI / 180));
                 }
                 break;
             }
@@ -135,7 +133,7 @@ int main()
                 z_rotation += rotation_distance;
                 for (int i = 0; i < object_count; i++)
                 {
-                    rotate(objects[i].spherical_coords, 0.0, 0.0, rotation_distance);
+                    rotate(objects[i].spherical_coords, 0.0, 0.0, rotation_distance * (M_PI / 180));
                 }
                 break;
             }
@@ -159,28 +157,57 @@ int main()
             case 90: // shift + z
             {
                 view_radius--;
-                if (view_radius < 16) view_radius = 16;
+                if (view_radius < 16)
+                    view_radius = 16;
+
+                std::cout << "\033[0;0f";
+                for (int row = 0; row < 2 * view_radius + 1; row++)
+                {
+                    for (int col = 0; col < 2 * view_radius + 1; col++)
+                    {
+                        std::cout << ansi_escape_codes::default_background_color << "  ";
+                    }
+                    std::cout << '\n';
+                }
+
+                std::cout << std::endl;
+
+                std::system("clear");
                 break;
             }
             case 88: // shift + x
             {
                 view_radius++;
-                break;
+
+                std::cout << "\033[0;0f";
+                for (int row = 0; row < 2 * view_radius + 1; row++)
+                {
+                    for (int col = 0; col < 2 * view_radius + 1; col++)
+                    {
+                        std::cout << ansi_escape_codes::default_background_color << "  ";
+                    }
+                    std::cout << '\n';
+                }
+
+                std::cout << std::endl;
+
+                std::system("clear");
             }
             case 61: // +
             {
-                rotation_distance += 0.001;
+                rotation_distance += 0.1;
                 break;
             }
             case 45: // -
             {
-                rotation_distance -= 0.001;
-                if (rotation_distance <= 0) rotation_distance = 0.001;
+                rotation_distance -= 0.1;
+                if (rotation_distance <= 0)
+                    rotation_distance = 0.1;
                 break;
             }
             case 48: // 0
             {
-                rotation_distance = 0.01;
+                rotation_distance = 0.1;
                 break;
             }
             case 32: // space
@@ -193,31 +220,31 @@ int main()
             }
         }
 
-        if (x_rotation >= 360.0)
+        if (std::abs(x_rotation) >= 360)
         {
             x_rotation = 0;
         }
-        else if (x_rotation < 0)
+        else if (std::abs(x_rotation) < 0)
         {
-            x_rotation = 359.99;
+            x_rotation = M_PI;
         }
 
-        if (y_rotation >= 360.0)
+        if (std::abs(y_rotation) >= 360)
         {
             y_rotation = 0;
         }
-        else if (y_rotation < 0)
+        else if (std::abs(y_rotation) < 0)
         {
-            y_rotation = 359.99;
+            y_rotation = M_PI;
         }
 
-        if (z_rotation >= 360.0)
+        if (std::abs(z_rotation) >= 360)
         {
             z_rotation = 0;
         }
-        else if (z_rotation < 0)
+        else if (std::abs(z_rotation) < 0)
         {
-            z_rotation = 359.99;
+            z_rotation = M_PI;
         }
 
         std::cout << ansi_escape_codes::reset << std::format(" X: {}    Y: {}   Z: {}   Zoom: {}    Rotation Distance: {}                               ", x_rotation, y_rotation, z_rotation, zoom, rotation_distance);

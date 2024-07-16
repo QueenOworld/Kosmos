@@ -32,6 +32,8 @@ struct CosmicObject
     const char* get_symbol();
 
     ansi_escape_codes::color_n get_color();
+
+    const char get_class();
 };
 
 #endif

@@ -76,16 +76,15 @@ int main() {
 
     for (int row = 0; row < 2 * view_radius + 1; row++) {
       for (int col = 0; col < 2 * view_radius + 1; col++) {
-        if ((row == view_radius || col == view_radius) &&
-            !(row == view_radius && col == view_radius)) {
-          std::cout << ansi_escape_codes::color_bg_n(233)
-                    << view[row][col].get_color()
-                    << view[row][col].get_symbol();
-        } else if (row == view_radius && col == view_radius) {
+        if (row == view_radius && col == view_radius) {
           std::cout << ansi_escape_codes::color_bg_n(232)
                     << ansi_escape_codes::slow_blink_opcode()
                     << view[row][col].get_color() << view[row][col].get_symbol()
                     << ansi_escape_codes::blink_off_opcode();
+        } else if (row == view_radius || col == view_radius) {
+          std::cout << ansi_escape_codes::color_bg_n(233)
+                    << view[row][col].get_color()
+                    << view[row][col].get_symbol();
         } else {
           std::cout << ansi_escape_codes::color_bg_n(232)
                     << view[row][col].get_color()
@@ -242,7 +241,7 @@ int main() {
     case 10: // enter
     {
       CosmicObject *target = &view[view_radius][view_radius];
-      
+
       break;
     }
     }

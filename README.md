@@ -7,8 +7,7 @@ I'm just starting this and working out how I make this, and have no deadlines se
 # Compilation
 
 -  ## Linux
-    I didn't add a make file, so you can run this in the root of the project instead:
     
     ```shell
-    g++ -std=c++23 -O3 -g $(find . -type f -iregex ".*\.cpp") -o main
+    ./build.sh
     ```

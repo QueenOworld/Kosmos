@@ -6,4 +6,5 @@
 ./src/math/Coords.cpp
 ./src/types/CosmicObject.cpp
 ./src/utils/input.cpp
+./src/utils/tui.cpp
 -o main

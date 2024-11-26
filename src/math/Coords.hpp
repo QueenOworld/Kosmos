@@ -19,18 +19,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef COORDINATES_H
 #define COORDINATES_H
 
-struct SphericalCoordinates
-{
+struct SphericalCoordinates {
     double radius, angle, azimuth;
 };
 
-struct CartesianCoordinates
-{
+struct CartesianCoordinates {
     double x, y, z;
 };
 
-struct RectangularCoordinates
-{
+struct RectangularCoordinates {
     double x, y;
 };
 
@@ -38,8 +35,8 @@ CartesianCoordinates spherical_to_cartesian_coords(SphericalCoordinates);
 SphericalCoordinates cartesian_to_spherical_coordinates(CartesianCoordinates);
 SphericalCoordinates random_spherical_coords();
 
-void rotate(SphericalCoordinates&, double, double, double);
+void rotate(SphericalCoordinates &, double, double, double);
 
-void rotate(CartesianCoordinates&, double, double, double);
+void rotate(CartesianCoordinates &, double, double, double);
 
 #endif

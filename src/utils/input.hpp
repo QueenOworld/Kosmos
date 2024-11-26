@@ -22,4 +22,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 int getch_echo(bool);
 int kbhit();
 
+enum input_codes {
+        UP = 65,
+        DOWN = 66,
+        RIGHT = 67,
+        LEFT = 68,
+        KEY_W = 119,
+        KEY_S = 115,
+        KEY_D = 100,
+        KEY_A = 97,
+        KEY_Q = 113,
+        KEY_E = 101,
+        KEY_Z = 122,
+        KEY_X = 120,
+        KEY_C = 99,
+        KEY_SHIFT_Z = 90,
+        KEY_SHIFT_X = 88,
+        KEY_PLUS = 61,
+        KEY_MINUS = 45,
+        KEY_ZERO = 48,
+        KEY_SPACE = 32,
+        KEY_ENTER = 10,
+    };
+
 #endif

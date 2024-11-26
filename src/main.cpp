@@ -24,9 +24,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <format>
 #include <iostream>
 #include <math.h>
+#include <sstream>
 #include <stdlib.h>
 #include <string>
 #include <vector>
+#include <csignal>
+#include "utils/tui.hpp"
+
+#define SCREEN_OVERWRITE "\033[0;0f"
 
 const int object_count = 500;
 
@@ -41,9 +46,12 @@ double y_rotation = 0.0;
 double z_rotation = 0.0;
 
 double rotation_distance = 0.1;
+
 void game_loop(std::vector<CosmicObject> objects);
 
 int main() {
+    signal(SIGWINCH, tui::resize_window);
+
     std::system("clear");
 
     std::vector<CosmicObject> objects =
@@ -75,55 +83,41 @@ void game_loop(std::vector<CosmicObject> objects) {
         }
     }
 
-    std::cout << "\033[0;0f";
+    std::stringstream screen_buffer;
+    screen_buffer << SCREEN_OVERWRITE;
 
     for (int row = 0; row < 2 * view_radius + 1; row++) {
         for (int col = 0; col < 2 * view_radius + 1; col++) {
             if (row == view_radius && col == view_radius) {
-                std::cout << ansi_escape_codes::color_bg_n(232)
-                          << ansi_escape_codes::slow_blink_opcode()
-                          << view[row][col].get_color()
-                          << view[row][col].get_symbol()
-                          << ansi_escape_codes::blink_off_opcode();
+                screen_buffer << ansi_escape_codes::color_bg_n(232)
+                              << ansi_escape_codes::slow_blink_opcode()
+                              << view[row][col].get_color()
+                              << view[row][col].get_symbol()
+                              << ansi_escape_codes::blink_off_opcode();
             } else if (row == view_radius || col == view_radius) {
-                std::cout << ansi_escape_codes::color_bg_n(233)
-                          << view[row][col].get_color()
-                          << view[row][col].get_symbol();
+                screen_buffer << ansi_escape_codes::color_bg_n(233)
+                              << view[row][col].get_color()
+                              << view[row][col].get_symbol();
             } else {
-                std::cout << ansi_escape_codes::color_bg_n(232)
-                          << view[row][col].get_color()
-                          << view[row][col].get_symbol();
+                screen_buffer << ansi_escape_codes::color_bg_n(232)
+                              << view[row][col].get_color()
+                              << view[row][col].get_symbol();
             }
         }
-        std::cout << '\n';
+        screen_buffer << '\n';
     }
 
-    std::cout << std::endl;
+    screen_buffer
+        << '\n'
+        << ansi_escape_codes::reset
+        << std::format(" X: {}    Y: {}   Z: {}   Zoom: {}    Rotation "
+                       "Distance: {}  Seed: {}                               ",
+                       x_rotation, y_rotation, z_rotation, zoom,
+                       rotation_distance, view[view_radius][view_radius].Seed);
+
+    std::cout << screen_buffer.str() << std::flush;
 
     input = getch_echo(false);
-
-    enum input_codes {
-        UP = 65,
-        DOWN = 66,
-        RIGHT = 67,
-        LEFT = 68,
-        KEY_W = 119,
-        KEY_S = 115,
-        KEY_D = 100,
-        KEY_A = 97,
-        KEY_Q = 113,
-        KEY_E = 101,
-        KEY_Z = 122,
-        KEY_X = 120,
-        KEY_C = 99,
-        KEY_SHIFT_Z = 90,
-        KEY_SHIFT_X = 88,
-        KEY_PLUS = 61,
-        KEY_MINUS = 45,
-        KEY_ZERO = 48,
-        KEY_SPACE = 32,
-        KEY_ENTER = 10,
-    };
 
     switch (input) {
     case KEY_W:
@@ -245,8 +239,7 @@ void game_loop(std::vector<CosmicObject> objects) {
         CosmicObject *target = &view[view_radius][view_radius];
         if ((*target).Seed != 0) {
             std::cout << "\033[0;0f" << ansi_escape_codes::white_color()
-                      << "Info"
-                      << "\nSeed: " << (*target).Seed
+                      << "Info" << "\nSeed: " << (*target).Seed
                       << "\nClass: " << (*target).get_class()
                       << "\nColor: " << (*target).get_color() << "#";
         }
@@ -278,11 +271,5 @@ void game_loop(std::vector<CosmicObject> objects) {
         z_rotation = M_PI;
     }
 
-    std::cout << ansi_escape_codes::reset
-              << std::format(
-                     " X: {}    Y: {}   Z: {}   Zoom: {}    Rotation "
-                     "Distance: {}  Seed: {}                               ",
-                     x_rotation, y_rotation, z_rotation, zoom,
-                     rotation_distance, view[view_radius][view_radius].Seed);
     game_loop(objects);
 }

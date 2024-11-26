@@ -71,7 +71,7 @@ void game_loop(std::vector<CosmicObject> objects) {
 
         if (x >= -(view_radius) && x <= view_radius && y >= -(view_radius) &&
             y <= view_radius) {
-            view[y + view_radius][y + view_radius] = i;
+            view[y + view_radius][x + view_radius] = i;
         }
     }
 

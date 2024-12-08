@@ -1,9 +1,9 @@
 -std=c++23
--O2
 -Wall
 -march=native
 -mtune=native
 -pipe
+-g
 -I./src
 ./src/main.cpp
 ./src/math/Coords.cpp
@@ -11,4 +11,4 @@
 ./src/utils/input.cpp
 ./src/utils/tui.cpp
 ./src/utils/game.cpp
--o kosmos
+-o kosmos-debug

@@ -15,7 +15,7 @@ inline std::string repeat(uint32_t num, const std::string &input) {
     return ret;
 }
 
-void tui::resize_window(int signum) {
+/* void tui::resize_window(int signum) {
     tui::draw_border("╭", "─", "╮", "│", "╯", "─", "╰", "│");
 }
 
@@ -131,4 +131,4 @@ void tui::draw_border(wchar_t tl_corner, wchar_t top, wchar_t tr_corner,
                        << '\n';
         }
     }
-}
+} */

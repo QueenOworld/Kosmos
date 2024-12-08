@@ -11,3 +11,8 @@ I'm just starting this and working out how I make this, and have no deadlines se
     ```shell
     ./build.sh
     ```
+    or
+    ```shell
+    ./build-debug.sh
+    ```
+    for a debug build

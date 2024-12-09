@@ -1,9 +1,9 @@
+#include <iostream>
 #include "utils/game.hpp"
 #include "math/Coords.hpp"
 #include "types/CosmicObject.hpp"
 #include "utils/input.hpp"
 #include "utils/tui.hpp"
-#include <bit>
 #include <cstdlib>
 #include <iomanip>
 #include <signal.h>

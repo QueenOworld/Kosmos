@@ -107,5 +107,5 @@ SphericalCoordinates random_spherical_coords() {
 
     double azimuth = angle_azimuth_dist(generator);
 
-    return SphericalCoordinates{radius, angle, azimuth};
+    return SphericalCoordinates(radius, angle, azimuth);
 }

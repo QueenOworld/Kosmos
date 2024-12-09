@@ -16,16 +16,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "math/Coords.hpp"
-#include "types/CosmicObject.hpp"
-#include "utils/ansi_escape_code.hpp"
 #include "utils/game.hpp"
-#include "utils/input.hpp"
-#include "utils/tui.hpp"
-#include <iostream>
 
 int main() {
-    Game game(500);
+    Game game(10000);
 
     while (true) {
         game.draw();

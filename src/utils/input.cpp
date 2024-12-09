@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "input.hpp"
 #include <fcntl.h>
-#include <iostream>
+#include <cstdio>
 #include <termios.h>
 #include <unistd.h>
 

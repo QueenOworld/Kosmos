@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <cmath>
 #include <cstdlib>
 #include <math.h>
-#include <string>
+#include <random>
 
 CosmicObject::CosmicObject(SphericalCoordinates spherical_coordinates) {
     spherical_coords = spherical_coordinates;
@@ -58,7 +58,9 @@ const char CosmicObject::get_class() {
 }
 
 const double CosmicObject::get_apparent_magnitude() {
-    return std::max<double>(-2, (Seed - 1312) % 35);
+    std::uniform_real_distribution<double> random_magnitude(-2.0, 35.0);
+    std::mt19937_64 random_generator{std::bit_cast<uint64_t>(Seed - 1312)};
+    return random_magnitude(random_generator);
 }
 
 const double CosmicObject::get_absolute_magnitude() {

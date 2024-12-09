@@ -27,7 +27,10 @@ Game::Game(int object_count) {
         cosmic_objects[i] = CosmicObject(random_spherical_coords());
     }
 
-    view_radius = std::floor(std::min(wsize.ws_row, wsize.ws_col) / 2) - 1;
+    view_radius =
+        std::floor(std::min(wsize.ws_row, (unsigned short)(wsize.ws_col / 2)) /
+                   2) -
+        1;
     zoom = view_radius * 2;
 
     x_rotation = 0.0;
@@ -40,11 +43,9 @@ Game::Game(int object_count) {
 }
 
 void Game::step() {
-    std::vector<std::vector<CosmicObject>> view =
-        std::vector<std::vector<CosmicObject>>(
-            2 * view_radius + 1,
-            std::vector<CosmicObject>(2 * view_radius + 1,
-                                      CosmicObject({0, 0, 0})));
+    viewport_t view = viewport_t(
+        2 * view_radius + 1, std::vector<CosmicObject>(
+                                 2 * view_radius + 1, CosmicObject({0, 0, 0})));
 
     for (CosmicObject cosmic_object : cosmic_objects) {
         CartesianCoordinates xyz =
@@ -147,6 +148,12 @@ void Game::step() {
         if ((*target).Seed != 0) {
             std::cout << "\033[0;0f" << ansi_escape_codes::white_color()
                       << "Info" << "\nSeed: " << (*target).Seed
+                      << "\nDistance: " << (*target).spherical_coords.radius
+                      << "ly"
+                      << "\nAbsolute Magnitude: "
+                      << (*target).get_absolute_magnitude()
+                      << "\nApparent Magnitude: "
+                      << (*target).get_apparent_magnitude()
                       << "\nClass: " << (*target).get_class()
                       << "\nColor: " << (*target).get_color() << "#";
         }
@@ -225,8 +232,7 @@ void Game::draw() {
         framebuffer << '\n';
     }
 
-    framebuffer << ""
-                << ansi_escape_codes::reset << std::fixed
+    framebuffer << "" << ansi_escape_codes::reset << std::fixed
                 << std::setprecision(2) << " X: " << x_rotation
                 << " Y: " << y_rotation << " Z: " << z_rotation
                 << " Zoom: " << zoom
@@ -241,7 +247,10 @@ void Game::redraw(int signum) {
     signal(SIGWINCH, SIG_IGN);
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &wsize);
     system("clear");
-    me->view_radius = std::floor(std::min(wsize.ws_row, wsize.ws_col) / 2) - 1;
+    me->view_radius =
+        std::floor(std::min(wsize.ws_row, (unsigned short)(wsize.ws_col / 2)) /
+                   2) -
+        1;
     me->draw();
     signal(SIGWINCH, redraw);
 }

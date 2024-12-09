@@ -98,7 +98,7 @@ void rotate(CartesianCoordinates &cartesian_coords, double angle_x,
 
 SphericalCoordinates random_spherical_coords() {
     std::random_device generator{};
-    std::uniform_real_distribution radius_dist(1000000.0, 1.0E9);
+    std::uniform_real_distribution radius_dist(4.0, 13.0E9);
     std::uniform_real_distribution angle_azimuth_dist(-360.0, 360.0);
 
     double radius = radius_dist(generator);

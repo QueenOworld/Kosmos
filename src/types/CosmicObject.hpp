@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "math/Coords.hpp"
 #include "utils/ansi_escape_code.hpp"
+#include <vector>
 
 struct CosmicObject {
     CosmicObject(SphericalCoordinates);
@@ -33,6 +34,12 @@ struct CosmicObject {
     ansi_escape_codes::color_n get_color();
 
     const char get_class();
+
+    const double get_apparent_magnitude();
+
+    const double get_absolute_magnitude();
 };
+
+using viewport_t = std::vector<std::vector<CosmicObject>>;
 
 #endif

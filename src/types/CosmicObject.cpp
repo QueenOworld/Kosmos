@@ -19,6 +19,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "CosmicObject.hpp"
 #include "utils/ansi_escape_code.hpp"
 #include <bit>
+#include <cmath>
+#include <cstdlib>
 #include <math.h>
 #include <string>
 
@@ -53,4 +55,13 @@ ansi_escape_codes::color_n CosmicObject::get_color() {
 const char CosmicObject::get_class() {
     const char *classes = "SABCDE";
     return classes[std::abs(Seed - 20) % 6];
+}
+
+const double CosmicObject::get_apparent_magnitude() {
+    return std::max<double>(-2, (Seed - 1312) % 35);
+}
+
+const double CosmicObject::get_absolute_magnitude() {
+    return get_apparent_magnitude() -
+           5 * std::log10(spherical_coords.radius / 3.261 - 1);
 }

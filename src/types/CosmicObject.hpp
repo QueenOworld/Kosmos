@@ -15,6 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
 #ifndef COSMIC_OBJECT_H
 #define COSMIC_OBJECT_H
 
@@ -22,22 +23,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "utils/ansi_escape_code.hpp"
 #include <vector>
 
+#define ONE_LIGHTYEAR 3.261563777 // the amount of lightyears in one parsec
+
 struct CosmicObject {
     CosmicObject(SphericalCoordinates);
 
     SphericalCoordinates spherical_coords;
 
-    long Seed;
+    long Seed; // i don't understand how to make a member const when it deletes
+               // the copy assignment operator, making it impossible to assign
+               // to game::cosmic_objects.
 
-    const char *get_symbol();
+    const char *get_symbol() const;
 
-    ansi_escape_codes::color_n get_color();
+    const ansi_escape_codes::color_n get_color() const;
 
-    const char get_class();
+    const char get_class() const;
 
-    const double get_apparent_magnitude();
+    const double get_apparent_magnitude() const;
 
-    const double get_absolute_magnitude();
+    const double get_absolute_magnitude() const;
+
+    // there is no point in recalculating all of these when its value will never
+    // be different, but like i said above i have no idea how to make them const
+    // members without anything breaking. all i want to convey is that it'll
+    // always be the same value once assigned.
 };
 
 using viewport_t = std::vector<std::vector<CosmicObject>>;

@@ -101,7 +101,7 @@ SphericalCoordinates random_spherical_coords() {
     std::uniform_real_distribution radius_dist(4.0, 13.0E9);
     std::uniform_real_distribution angle_azimuth_dist(-360.0, 360.0);
 
-    double radius = radius_dist(generator);
+    double radius = std::min(radius_dist(generator), radius_dist(generator));
 
     double angle = angle_azimuth_dist(generator);
 

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "utils/game.hpp"
 #include "math/Coords.hpp"
 #include "types/CosmicObject.hpp"
@@ -6,6 +5,7 @@
 #include "utils/tui.hpp"
 #include <cstdlib>
 #include <iomanip>
+#include <iostream>
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
@@ -13,12 +13,10 @@
 
 Game *Game::me = nullptr;
 
-Game::Game(int object_count) {
+Game::Game(const int object_count) : object_count(object_count) {
     me = this;
 
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &wsize);
-
-    this->object_count = object_count;
 
     cosmic_objects =
         std::vector<CosmicObject>(object_count, CosmicObject({0, 0, 0}));

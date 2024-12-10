@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "CosmicObject.hpp"
+#include "math/Coords.hpp"
 #include "utils/ansi_escape_code.hpp"
 #include <bit>
 #include <cmath>
@@ -32,7 +33,7 @@ CosmicObject::CosmicObject(SphericalCoordinates spherical_coordinates) {
            (std::bit_cast<long>(spherical_coordinates.azimuth) << 42);
 }
 
-const char *CosmicObject::get_symbol() {
+const char *CosmicObject::get_symbol() const {
     if (Seed == 0)
         return "  ";
     const char *symbols[28] = {". ", "* ", "✧ ", "✦ ", "⋆ ", "✴ ", "✵ ",
@@ -42,7 +43,7 @@ const char *CosmicObject::get_symbol() {
     return symbols[std::abs(Seed) % 28];
 }
 
-ansi_escape_codes::color_n CosmicObject::get_color() {
+const ansi_escape_codes::color_n CosmicObject::get_color() const {
     const int colors[31] = {232, 222, 223, 117, 228, 229, 195, 229,
                             230, 231, 235, 236, 237, 238, 239, 240,
                             241, 242, 243, 244, 245, 246, 247, 248,
@@ -52,18 +53,18 @@ ansi_escape_codes::color_n CosmicObject::get_color() {
     return ansi_escape_codes::color_n(colors[rand() % 31]);
 }
 
-const char CosmicObject::get_class() {
-    const char *classes = "SABCDE";
-    return classes[std::abs(Seed - 20) % 6];
+const char CosmicObject::get_class() const {
+    const char *classes = "MKGFABO";
+    return classes[std::abs(Seed - 20) % 7];
 }
 
-const double CosmicObject::get_apparent_magnitude() {
+const double CosmicObject::get_apparent_magnitude() const {
     std::uniform_real_distribution<double> random_magnitude(-2.0, 35.0);
     std::mt19937_64 random_generator{std::bit_cast<uint64_t>(Seed - 1312)};
     return random_magnitude(random_generator);
 }
 
-const double CosmicObject::get_absolute_magnitude() {
+const double CosmicObject::get_absolute_magnitude() const {
     return get_apparent_magnitude() -
-           5 * std::log10(spherical_coords.radius / 3.261 - 1);
+           5 * std::log10((spherical_coords.radius / ONE_LIGHTYEAR) - 1);
 }

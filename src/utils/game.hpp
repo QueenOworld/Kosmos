@@ -5,7 +5,7 @@
 #include <vector>
 
 class Game {
-    int object_count;
+    const int object_count;
 private:
     std::vector<CosmicObject> cosmic_objects;
 
@@ -26,7 +26,7 @@ private:
     static Game *me;
 
   public:
-    Game(int object_count);
+    Game(const int object_count);
     void draw();
     void step();
 };

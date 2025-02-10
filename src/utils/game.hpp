@@ -6,7 +6,8 @@
 
 class Game {
     const int object_count;
-private:
+
+  private:
     std::vector<CosmicObject> cosmic_objects;
 
     static inline struct winsize wsize;

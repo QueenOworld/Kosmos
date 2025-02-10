@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost/lexical_cast.hpp>
 #include <ostream>
 #include <string>
 
@@ -123,18 +122,18 @@ inline std::ostream &operator<<(std::ostream &os, const color_n &n) {
 }
 
 inline std::string &operator+=(std::string &str, const color_n &n) {
-    str += "\x1b[38;5;" + boost::lexical_cast<std::string>((int)n.m_n) + "m";
+    str += "\x1b[38;5;" + std::to_string((int)n.m_n) + "m";
     return str;
 }
 
 inline std::string &operator+(std::string &str, const color_n &n) {
-    str += "\x1b[38;5;" + boost::lexical_cast<std::string>((int)n.m_n) + "m";
+    str += "\x1b[38;5;" + std::to_string((int)n.m_n) + "m";
     return str;
 }
 
 inline std::string operator+(const color_n &n1, const color_n &n2) {
-    return "\x1b[38;5;" + boost::lexical_cast<std::string>((int)n1.m_n) + "m" +
-           "\x1b[38;5;" + boost::lexical_cast<std::string>((int)n2.m_n) + "m";
+    return "\x1b[38;5;" + std::to_string((int)n1.m_n) + "m" + "\x1b[38;5;" +
+           std::to_string((int)n2.m_n) + "m";
 }
 
 inline std::ostream &operator<<(std::ostream &os, const color_bg_n &n) {
@@ -143,18 +142,18 @@ inline std::ostream &operator<<(std::ostream &os, const color_bg_n &n) {
 }
 
 inline std::string &operator+=(std::string &str, const color_bg_n &n) {
-    str += "\x1b[48;5;" + boost::lexical_cast<std::string>((int)n.m_n) + "m";
+    str += "\x1b[48;5;" + std::to_string((int)n.m_n) + "m";
     return str;
 }
 
 inline std::string &operator+(std::string &str, const color_bg_n &n) {
-    str += "\x1b[48;5;" + boost::lexical_cast<std::string>((int)n.m_n) + "m";
+    str += "\x1b[48;5;" + std::to_string((int)n.m_n) + "m";
     return str;
 }
 
 inline std::string operator+(const color_bg_n &n1, const color_bg_n &n2) {
-    return "\x1b[48;5;" + boost::lexical_cast<std::string>((int)n1.m_n) + "m" +
-           "\x1b[34;5;" + boost::lexical_cast<std::string>((int)n2.m_n) + "m";
+    return "\x1b[48;5;" + std::to_string((int)n1.m_n) + "m" + "\x1b[34;5;" +
+           std::to_string((int)n2.m_n) + "m";
 }
 
 struct color_rgb {
@@ -186,16 +185,14 @@ inline std::ostream &operator<<(std::ostream &os, const color_rgb &c) {
 }
 
 inline std::string &operator+=(std::string &str, const color_rgb &c) {
-    str += "\x1b[38;2;" + boost::lexical_cast<std::string>((int)c.m_r) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_g) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_b) + "m";
+    str += "\x1b[38;2;" + std::to_string((int)c.m_r) + ";" +
+           std::to_string((int)c.m_g) + ";" + std::to_string((int)c.m_b) + "m";
     return str;
 }
 
 inline std::string &operator+(std::string &str, const color_rgb &c) {
-    str += "\x1b[38;2;" + boost::lexical_cast<std::string>((int)c.m_r) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_g) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_b) + "m";
+    str += "\x1b[38;2;" + std::to_string((int)c.m_r) + ";" +
+           std::to_string((int)c.m_g) + ";" + std::to_string((int)c.m_b) + "m";
     return str;
 }
 
@@ -206,16 +203,14 @@ inline std::ostream &operator<<(std::ostream &os, const color_bg_rgb &c) {
 }
 
 inline std::string &operator+=(std::string &str, const color_bg_rgb &c) {
-    str += "\x1b[48;2;" + boost::lexical_cast<std::string>((int)c.m_r) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_g) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_b) + "m";
+    str += "\x1b[48;2;" + std::to_string((int)c.m_r) + ";" +
+           std::to_string((int)c.m_g) + ";" + std::to_string((int)c.m_b) + "m";
     return str;
 }
 
 inline std::string &operator+(std::string &str, const color_bg_rgb &c) {
-    str += "\x1b[48;2;" + boost::lexical_cast<std::string>((int)c.m_r) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_g) + ";" +
-           boost::lexical_cast<std::string>((int)c.m_b) + "m";
+    str += "\x1b[48;2;" + std::to_string((int)c.m_r) + ";" +
+           std::to_string((int)c.m_g) + ";" + std::to_string((int)c.m_b) + "m";
     return str;
 }
 

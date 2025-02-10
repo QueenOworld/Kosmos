@@ -34,15 +34,25 @@ struct CosmicObject {
                // the copy assignment operator, making it impossible to assign
                // to game::cosmic_objects.
 
-    const char *get_symbol() const;
+    ansi_escape_codes::color_rgb Color;
 
-    const ansi_escape_codes::color_n get_color() const;
+    const char *Symbol;
 
-    const char get_class() const;
+    char Class;
 
-    const double get_apparent_magnitude() const;
+    double ApparentMagnitude;
 
-    const double get_absolute_magnitude() const;
+    double AbsoluteMagnitude;
+private:
+    static const char *get_symbol(CosmicObject object);
+
+    static ansi_escape_codes::color_rgb get_color(CosmicObject object);
+
+    static char get_class(CosmicObject object);
+
+    static double get_apparent_magnitude(CosmicObject object);
+
+    static double get_absolute_magnitude(CosmicObject object);
 
     // there is no point in recalculating all of these when its value will never
     // be different, but like i said above i have no idea how to make them const

@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "utils/game.hpp"
 
 int main() {
-    Game game(500);
+    Game game(3000);
 
     while (true) {
         game.draw();

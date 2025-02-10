@@ -3,13 +3,11 @@
 #include "types/CosmicObject.hpp"
 #include "utils/input.hpp"
 #include "utils/tui.hpp"
-#include <cstdlib>
+#include <cmath>
+#include <csignal>
 #include <iomanip>
 #include <iostream>
-#include <signal.h>
-#include <stdlib.h>
 #include <sys/ioctl.h>
-#include <unistd.h>
 
 Game *Game::me = nullptr;
 
@@ -148,12 +146,10 @@ void Game::step() {
                       << "Info" << "\nSeed: " << (*target).Seed
                       << "\nDistance: " << (*target).spherical_coords.radius
                       << "ly"
-                      << "\nAbsolute Magnitude: "
-                      << (*target).get_absolute_magnitude()
-                      << "\nApparent Magnitude: "
-                      << (*target).get_apparent_magnitude()
-                      << "\nClass: " << (*target).get_class()
-                      << "\nColor: " << (*target).get_color() << "#";
+                      << "\nAbsolute Magnitude: " << (*target).AbsoluteMagnitude
+                      << "\nApparent Magnitude: " << (*target).ApparentMagnitude
+                      << "\nClass: " << (*target).Class
+                      << "\nColor: " << (*target).Color << "#";
         }
         getch_echo(false);
         break;
@@ -214,17 +210,14 @@ void Game::draw() {
             if (row == view_radius && col == view_radius) {
                 framebuffer << ansi_escape_codes::color_bg_n(232)
                             << ansi_escape_codes::slow_blink_opcode()
-                            << view[row][col].get_color()
-                            << view[row][col].get_symbol()
+                            << view[row][col].Color << view[row][col].Symbol
                             << ansi_escape_codes::blink_off_opcode();
             } else if (row == view_radius || col == view_radius) {
                 framebuffer << ansi_escape_codes::color_bg_n(233)
-                            << view[row][col].get_color()
-                            << view[row][col].get_symbol();
+                            << view[row][col].Color << view[row][col].Symbol;
             } else {
                 framebuffer << ansi_escape_codes::color_bg_n(232)
-                            << view[row][col].get_color()
-                            << view[row][col].get_symbol();
+                            << view[row][col].Color << view[row][col].Symbol;
             }
         }
         framebuffer << '\n';

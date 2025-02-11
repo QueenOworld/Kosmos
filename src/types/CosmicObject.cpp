@@ -43,11 +43,16 @@ CosmicObject::CosmicObject(SphericalCoordinates spherical_coordinates)
 const char *CosmicObject::get_symbol(CosmicObject object) {
     if (object.Seed == 0)
         return "  ";
-    const char *symbols[28] = {". ", "* ", "✧ ", "✦ ", "⋆ ", "✴ ", "✵ ",
+    /* const char *symbols[28] = {". ", "* ", "✧ ", "✦ ", "⋆ ", "✴ ", "✵ ",
                                "✶ ", "✷ ", "✸ ", "✹ ", "❂ ", "᠅ ", "◌ ",
                                " .", " *", " ✧", " ✦", " ⋆", " ✴", " ✵",
-                               " ✶", " ✷", " ✸", " ✹", " ❂", " ᠅", " ◌"};
-    return symbols[std::abs(object.Seed) % 28];
+                               " ✶", " ✷", " ✸", " ✹", " ❂", " ᠅", " ◌"}; */
+    const char *symbols[44] = {
+        ". ", "* ", "🟄 ", "🟅 ", "🟆 ", "🟉 ", "🟋 ", "🟎 ", "🟐 ", "🟒 ", "🟓 ",
+        "🞄 ", "🞗 ", "✦ ", "⋆ ", "● ", "⯌ ", "‧ ", "․ ", "∙ ", "⋆ ", "⦁ ",
+        " .", " *", " 🟄", " 🟅", " 🟆", " 🟉", " 🟋", " 🟎", " 🟐", " 🟒", " 🟓",
+        " 🞄", " 🞗", " ✦", " ⋆", " ●", " ⯌", " ‧", " ․", " ∙", " ⋆", " ⦁"};
+    return symbols[std::abs(object.Seed) % 44];
 }
 
 ansi_escape_codes::color_rgb CosmicObject::get_color(CosmicObject object) {

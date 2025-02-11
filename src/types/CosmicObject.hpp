@@ -30,9 +30,7 @@ struct CosmicObject {
 
     SphericalCoordinates spherical_coords;
 
-    long Seed; // i don't understand how to make a member const when it deletes
-               // the copy assignment operator, making it impossible to assign
-               // to game::cosmic_objects.
+    long Seed;
 
     ansi_escape_codes::color_rgb Color;
 
@@ -43,7 +41,8 @@ struct CosmicObject {
     double ApparentMagnitude;
 
     double AbsoluteMagnitude;
-private:
+
+  private:
     static const char *get_symbol(CosmicObject object);
 
     static ansi_escape_codes::color_rgb get_color(CosmicObject object);
@@ -53,11 +52,6 @@ private:
     static double get_apparent_magnitude(CosmicObject object);
 
     static double get_absolute_magnitude(CosmicObject object);
-
-    // there is no point in recalculating all of these when its value will never
-    // be different, but like i said above i have no idea how to make them const
-    // members without anything breaking. all i want to convey is that it'll
-    // always be the same value once assigned.
 };
 
 using viewport_t = std::vector<std::vector<CosmicObject>>;

@@ -19,15 +19,15 @@ This list is subject to change
 ## Compilation
 
 ### Release
-    ```shell
-    cmake -DCMAKE_BUILD_TYPE=Release -H. -Bbuild/Release
-    cmake --build build/Release
-    ```
+```shell
+cmake -DCMAKE_BUILD_TYPE=Release -H. -Bbuild/Release
+cmake --build build/Release
+```
 ### Debug
-    ```shell
-    cmake -DCMAKE_BUILD_TYPE=Debug -H.  -Bbuild/Debug
-    cmake --build build/Debug
-    ```
+```shell
+cmake -DCMAKE_BUILD_TYPE=Debug -H.  -Bbuild/Debug
+cmake --build build/Debug
+```
 
 ## Todo
 - Add a proper gameplay loop

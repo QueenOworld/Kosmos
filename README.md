@@ -20,12 +20,12 @@ This list is subject to change
 
 ### Release
 ```shell
-cmake -DCMAKE_BUILD_TYPE=Release -H. -Bbuild/Release
+cmake -DCMAKE_BUILD_TYPE=Release -Bbuild/Release
 cmake --build build/Release
 ```
 ### Debug
 ```shell
-cmake -DCMAKE_BUILD_TYPE=Debug -H.  -Bbuild/Debug
+cmake -DCMAKE_BUILD_TYPE=Debug -Bbuild/Debug
 cmake --build build/Debug
 ```
 

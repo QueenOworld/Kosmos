@@ -31,7 +31,7 @@ cmake --build build/Debug
 
 ## Todo
 - Add a proper gameplay loop
-- Add signal scanning and audio playback via procedural sound generation and some rerecorded audio
+- Add signal scanning and audio playback via procedural sound generation and some prerecorded audio
 - Make a main menu
 - Add the second half of the UI that sits next to the viewport, with information on inspected objects, an audio graph, and a smaller viewport with a view of the object in more detail
 - Properly implement landscape and portrait

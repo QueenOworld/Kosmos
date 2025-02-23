@@ -53,6 +53,8 @@ const char *CosmicObject::get_symbol(CosmicObject object) {
     return symbols[std::abs(object.Seed) % 44];
 }
 
+// plackian locus using 2 approximations, accurate from 1000K to 25000
+// https://en.wikipedia.org/wiki/Planckian_locus#Approximation
 ansi_escape_codes::color_rgb CosmicObject::get_color(CosmicObject object) {
     double x;
     double y;

@@ -101,7 +101,6 @@ struct color_n {
     friend std::string &operator+(std::string &str, const color_n &n);
     friend std::string operator+(const color_n &n1, const color_n &n2);
 
-  private:
     unsigned char m_n;
 };
 
@@ -112,7 +111,6 @@ struct color_bg_n {
     friend std::string &operator+(std::string &str, const color_bg_n &n);
     friend std::string operator+(const color_bg_n &n1, const color_bg_n &n2);
 
-  private:
     unsigned char m_n;
 };
 
@@ -163,7 +161,6 @@ struct color_rgb {
     friend std::string &operator+=(std::string &str, const color_rgb &c);
     friend std::string &operator+(std::string &str, const color_rgb &c);
 
-  private:
     unsigned char m_r, m_g, m_b;
 };
 
@@ -174,7 +171,6 @@ struct color_bg_rgb {
     friend std::string &operator+=(std::string &str, const color_bg_rgb &c);
     friend std::string &operator+(std::string &str, const color_bg_rgb &c);
 
-  private:
     unsigned char m_r, m_g, m_b;
 };
 

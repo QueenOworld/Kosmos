@@ -122,7 +122,8 @@ char CosmicObject::get_class(CosmicObject object) {
 }
 
 double CosmicObject::get_apparent_magnitude(CosmicObject object) {
-    std::uniform_real_distribution<double> random_magnitude(-2.0, 35.0);
+    std::uniform_real_distribution<double> random_magnitude(
+        -2.0, 5.0 + std::log2(object.spherical_coords.radius));
     std::mt19937_64 random_generator{
         std::bit_cast<uint64_t>(object.Seed - 1312)};
     return random_magnitude(random_generator);

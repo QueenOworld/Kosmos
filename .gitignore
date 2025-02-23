@@ -1,3 +1,9 @@
 #compiled program
 kosmos
 kosmos-debug
+#flamegraph
+perf.data
+flamegraph.svg
+**/Release/*
+**/Debug/*
+build

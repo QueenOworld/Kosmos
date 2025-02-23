@@ -9,12 +9,22 @@
 #include <iostream>
 #include <sys/ioctl.h>
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 Game *Game::me = nullptr;
 
 Game::Game(const int object_count) : object_count(object_count) {
     me = this;
 
+#ifdef __unix__
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &wsize);
+#endif
+
+#ifdef _WIN32
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+#endif
 
     cosmic_objects =
         std::vector<CosmicObject>(object_count, CosmicObject({0, 0, 0}));
@@ -23,10 +33,24 @@ Game::Game(const int object_count) : object_count(object_count) {
         cosmic_objects[i] = CosmicObject(random_spherical_coords());
     }
 
+#ifdef __unix__
     view_radius =
         std::floor(std::min(wsize.ws_row, (unsigned short)(wsize.ws_col / 2)) /
                    2) -
         1;
+#endif
+
+#ifdef _WIN32
+    view_radius =
+        std::floor(std::min(csbi.srWindow.Bottom - csbi.srWindow.Top + 1,
+                            (unsigned short)((csbi.srWindow.Right -
+                                              csbi.srWindow.Left + 1) /
+                                             2)) /
+                   2) -
+        1;
+
+#endif
+
     zoom = view_radius * 2;
 
     x_rotation = 0.0;
@@ -235,6 +259,7 @@ void Game::draw() {
 }
 
 void Game::redraw(int signum) {
+#ifdef __unix__
     signal(SIGWINCH, SIG_IGN);
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &wsize);
     system("clear");
@@ -244,4 +269,17 @@ void Game::redraw(int signum) {
         1;
     me->draw();
     signal(SIGWINCH, redraw);
+#endif
+#ifdef _WIN32
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    system("clr");
+    me->view_radius =
+        std::floor(std::min(csbi.srWindow.Bottom - csbi.srWindow.Top + 1,
+                            (unsigned short)((csbi.srWindow.Right -
+                                              csbi.srWindow.Left + 1) /
+                                             2)) /
+                   2) -
+        1;
+    me->draw();
+#endif
 }

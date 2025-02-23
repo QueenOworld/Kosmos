@@ -17,7 +17,17 @@ I'm just starting this and working out how I make this, and have no deadlines se
 This list is subject to change
 
 ## Compilation
-use cmake to compile this project
+
+### Release
+    ```shell
+    cmake -DCMAKE_BUILD_TYPE=Release -H. -Bbuild/Release
+    cmake --build build/Release
+    ```
+### Debug
+    ```shell
+    cmake -DCMAKE_BUILD_TYPE=Debug -H.  -Bbuild/Debug
+    cmake --build build/Debug
+    ```
 
 ## Todo
 - Add a proper gameplay loop

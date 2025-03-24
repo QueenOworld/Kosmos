@@ -23,7 +23,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <cmath>
 #include <cstdlib>
 #include <random>
-#include <sys/types.h>
 
 CosmicObject::CosmicObject(SphericalCoordinates spherical_coordinates)
     : spherical_coords(spherical_coordinates),

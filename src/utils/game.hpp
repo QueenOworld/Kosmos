@@ -1,8 +1,11 @@
 #pragma once
 
 #include "types/CosmicObject.hpp"
-#include <sys/ioctl.h>
 #include <vector>
+
+#ifdef __unix__
+#include <sys/ioctl.h>
+#endif
 
 #ifdef _WIN32
 #include <Windows.h>

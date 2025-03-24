@@ -17,12 +17,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "input.hpp"
-#include <fcntl.h>
 #include <cstdio>
-#include <termios.h>
+#include <fcntl.h>
 #include <unistd.h>
 
-int getch_echo(bool echo) {
+#ifdef _WIN32
+#include <conio.h>
+#endif
+
+#ifdef __unix__
+#include <termios.h>
+
+int getch(bool echo) {
     struct termios oldt, newt;
     int ch;
     tcgetattr(STDIN_FILENO, &oldt);
@@ -62,3 +68,4 @@ int kbhit() {
 
     return 0;
 }
+#endif

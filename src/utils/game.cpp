@@ -7,7 +7,10 @@
 #include <csignal>
 #include <iomanip>
 #include <iostream>
+
+#ifdef __unix__
 #include <sys/ioctl.h>
+#endif
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -80,7 +83,7 @@ void Game::step() {
         }
     }
 
-    int input = getch_echo(false);
+    int input = getch(false);
 
     switch (input) {
     case KEY_W:
@@ -175,7 +178,7 @@ void Game::step() {
                       << "\nClass: " << (*target).Class
                       << "\nColor: " << (*target).Color << "#";
         }
-        getch_echo(false);
+        getch(false);
         break;
     }
     case KEY_ENTER: {

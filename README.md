@@ -1,3 +1,5 @@
+# ⚠️ MOVED TO https://git.softkittypa.ws/lexi/Kosmos
+
 # Kosmos
 ## What is this?
 
